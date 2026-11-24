@@ -9,6 +9,7 @@ import type { Session } from './client'
 import { benchmarkSeries, Chart, ChartLegend, strategySeries } from './charts'
 import type { NetworkRequest, Snapshot, VerifyRequest } from './protocol'
 import { WorkerRpc } from './rpc'
+import { NetworkApi } from './network-api'
 import { DownloadLink, EmptySession, MetricCards, PanelTitle, ProtocolFacts, Select, SessionResult, Slider, blockLabel, idLabel, nodeNames, number } from './ui'
 import { WasmBenchmark } from './wasm-benchmark'
 import { ZkExample } from './zk'
@@ -16,7 +17,7 @@ import { InputModes } from './input'
 import './tokens.css'
 import './style.css'
 
-const network = new WorkerRpc<NetworkRequest>(new Worker(new URL('./network.worker.ts', import.meta.url), { type: 'module' }))
+const network = new NetworkApi()
 const verifier = new WorkerRpc<VerifyRequest>(new Worker(new URL('./verifier.worker.ts', import.meta.url), { type: 'module' }))
 const tabs = [
   { id: 'network', label: 'Network', icon: Grid2X2 },
@@ -27,7 +28,7 @@ type Tab = typeof tabs[number]['id']
 
 const initialTab = (): Tab => tabs.find(tab => `#${tab.id}` === window.location.hash)?.id ?? 'network'
 const statuses = Object.keys(nodeNames) as NodeStatus[]
-type HistoryPoint = { round: number, height: number, adaptive: number, static: number, recovered: boolean }
+type HistoryPoint = { round: number, adaptive: number, static: number }
 const initialSeed = DEMO_BLOCKS[0]
 const multiRoundLimit = Math.floor((BLOCK_BYTES * 0.01 - HEADER_BYTES) / (2 * (SHARD_RESPONSE_BYTES + COORDINATE_BYTES)))
 
@@ -87,10 +88,8 @@ function App() {
     seeingRound.current = next.round
     setHistory(previous => [...previous.slice(-23), {
       round: next.round,
-      height: next.height,
       adaptive: Number((next.adaptive.reachable / CELLS * 100).toFixed(1)),
       static: Number((next.baseline.reachable / CELLS * 100).toFixed(1)),
-      recovered: next.byteVerified,
     }])
   }, [])
 
@@ -148,10 +147,10 @@ function App() {
 
   useEffect(() => {
     const id = window.setTimeout(() => {
-      if (requestControls.current !== DEFAULT_CONTROLS && requestControls.current === controls) void networkAction('tick')
+      if (running && requestControls.current !== DEFAULT_CONTROLS && requestControls.current === controls) void networkAction('tick')
     }, 180)
     return () => window.clearTimeout(id)
-  }, [controls, networkAction])
+  }, [controls, networkAction, running])
 
   function change(key: keyof Controls, value: number) {
     const next = { ...requestControls.current, [key]: value }
@@ -209,9 +208,8 @@ function App() {
     return () => window.removeEventListener('keydown', shortcut)
   }, [canPublish, networkAction])
 
-  const recoveryHistory = snapshot ? history.filter(point => point.height === snapshot.height) : []
-  const recoveryRate = recoveryHistory.length
-    ? recoveryHistory.filter(point => point.recovered).length / recoveryHistory.length * 100
+  const recoveryRate = snapshot?.blockRounds
+    ? snapshot.recoveredRounds / snapshot.blockRounds * 100
     : undefined
 
   return <>
@@ -270,7 +268,8 @@ function App() {
             </section>}
           </article>
           <section className="chaos">
-            <PanelTitle title="Controls" detail="Changes apply on the next round." />
+            <PanelTitle title="Controls" detail="Changes apply on the next server round."
+              action={<button className="button secondary compact" disabled={busy || verifying} onClick={() => void networkAction('tick')}>Run one round</button>} />
             <Slider label="Fault injection" description="Set nodes offline or withholding." value={controls.faults} min={0} max={60} unit="%" onChange={value => change('faults', value)} />
             <Slider label="Quadrant withholding" description="Suppress replies from the first quadrant." value={controls.withholding} min={0} max={100} unit="%" onChange={value => change('withholding', value)} />
             <Slider label="Latency spike" description="Add delay against the 300 ms deadline." value={controls.latency} min={0} max={500} step={10} unit=" ms" onChange={value => change('latency', value)} />
@@ -283,7 +282,7 @@ function App() {
         <MetricCards
           recovery={snapshot?.byteVerified}
           recoveryRate={recoveryRate}
-          recoveryRounds={recoveryHistory.length}
+          recoveryRounds={snapshot?.blockRounds}
           storage={snapshot?.adaptive.storagePercent}
           factor={snapshot?.adaptive.factor}
           session={session}
@@ -359,7 +358,7 @@ function App() {
         <p className="subtle"><CircleHelp size={16} /> Availability claims are probabilistic. This simulator also checks reconstruction by decoding the original block byte for byte.</p>
       </>}
       {tab === 'benchmarks' && <Benchmarks ready={cryptoStatus === 'ready' && !!snapshot} customBlock={snapshot?.sourceBytes != null} />}
-      <footer><span>GHOSTCHAIN</span><a href="./project/">Project files</a><span>Browser-only proof of concept</span></footer>
+      <footer><span>GHOSTCHAIN</span><a href="./project/">Project files</a><span>{error ? 'Simulation request failed' : snapshot ? 'Live Node simulation · browser verification' : 'Connecting to simulation server'}</span></footer>
     </main>
   </>
 }

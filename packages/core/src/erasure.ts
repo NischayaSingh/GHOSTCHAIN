@@ -55,12 +55,14 @@ function combine(inputs: Shard[], coefficients: Uint8Array): Shard {
 }
 
 export class ProductCode {
+  readonly k: number
   readonly width: number
   private readonly generator: Uint8Array[]
   private readonly cache = new Map<string, Uint8Array[]>()
 
-  constructor(readonly k: number) {
+  constructor(k: number) {
     if (!Number.isInteger(k) || k < 1 || k > 128) throw new RangeError('Expected 1 ≤ k ≤ 128')
+    this.k = k
     this.width = 2 * k
     this.generator = Array.from({ length: this.width }, (_, row) =>
       Uint8Array.from({ length: k }, (_, col) => row < k ? Number(row === col) : inverses[row ^ col]),

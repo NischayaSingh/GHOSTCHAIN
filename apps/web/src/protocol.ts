@@ -7,6 +7,8 @@ export interface Snapshot {
   seed: number
   height: number
   round: number
+  blockRounds: number
+  recoveredRounds: number
   controls: Controls
   blockId: string
   sourceBytes?: number
@@ -26,6 +28,7 @@ export type NetworkRequest =
   | { kind: 'openings', indices: number[], fixture?: boolean }
 
 export interface OpeningPacket {
+  httpBodyBytes?: number
   height: number
   blockId: string
   commitments: Uint8Array[]

@@ -102,9 +102,10 @@ export function SessionResult({ session }: { session: Session }) {
     </div>
     <div className="session-metrics">
       <div><span>Detection confidence</span><strong>{session.confidence ? `${(session.confidence * 100).toFixed(4)}%` : '—'}</strong></div>
-      <div><span>Session traffic</span><strong>{bytes(session.bytes)} <small>{session.share.toFixed(3)}%</small></strong></div>
+      <div><span>Modeled protocol traffic</span><strong>{bytes(session.bytes)} <small>{session.share.toFixed(3)}%</small></strong></div>
       <div><span>Verification per round</span><strong>{session.timings.map(time => time.toFixed(1)).join(' / ')} ms</strong></div>
     </div>
+    {session.httpBodyBytes != null && <p className="note">Sampling HTTP request and response bodies: {bytes(session.httpBodyBytes)} (headers excluded).</p>}
     <div className="sample-list" aria-label="Sample outcomes">{session.samples.map(({ index, state }) =>
       <span className={`sample ${state}`} key={index} title={`${state} · row ${Math.floor(index / WIDTH)}, column ${index % WIDTH}`}>
         {String(Math.floor(index / WIDTH)).padStart(3, '0')}.{String(index % WIDTH).padStart(3, '0')}

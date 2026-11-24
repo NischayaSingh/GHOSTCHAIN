@@ -11,16 +11,17 @@
     "node": ">=22.12"
   },
   "scripts": {
-    "dev": "vite --config apps/web/vite.config.ts --host 0.0.0.0",
+    "dev": "node --env-file-if-exists=.env node_modules/vite/bin/vite.js --config apps/web/vite.config.ts --host 0.0.0.0",
     "build": "vite build --config apps/web/vite.config.ts",
-    "preview": "vite preview --config apps/web/vite.config.ts --host 0.0.0.0",
+    "preview": "node --env-file-if-exists=.env node_modules/vite/bin/vite.js preview --config apps/web/vite.config.ts --host 0.0.0.0",
     "check": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
     "experiment": "tsx scripts/experiment.ts",
     "fixtures": "tsx scripts/fixture.ts",
     "zk:build": "bash zk/build.sh",
     "zk:verify": "snarkjs groth16 verify apps/web/public/zk/verification_key.json apps/web/public/zk/public.json apps/web/public/zk/proof.json",
-    "rehearse": "node scripts/rehearse.mjs"
+    "rehearse": "node scripts/rehearse.mjs",
+    "start": "node --experimental-strip-types --disable-warning=ExperimentalWarning --env-file-if-exists=.env apps/server/start.ts"
   },
   "devDependencies": {
     "@crate-crypto/node-eth-kzg": "^0.10.0",
@@ -37,6 +38,7 @@
     "vite": "^7.0.0"
   },
   "dependencies": {
+    "sirv": "^3.0.2",
     "snarkjs": "^0.7.6"
   }
 }

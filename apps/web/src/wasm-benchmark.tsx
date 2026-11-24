@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { Fingerprint } from 'lucide-react'
 import { CELLS } from '@ghostchain/core/model'
 import { sampleIndices } from '@ghostchain/core/das'
-import type { NetworkRequest, OpeningPacket, VerifyRequest, VerifyResult } from './protocol'
+import type { OpeningPacket, VerifyRequest, VerifyResult } from './protocol'
 import type { WorkerRpc } from './rpc'
+import type { NetworkApi } from './network-api'
 import { PanelTitle } from './ui'
 
 interface Row {
@@ -19,7 +20,7 @@ interface Measurement {
 }
 
 export function WasmBenchmark({ network, verifier, ready }: {
-  network: WorkerRpc<NetworkRequest>, verifier: WorkerRpc<VerifyRequest>, ready: boolean,
+  network: NetworkApi, verifier: WorkerRpc<VerifyRequest>, ready: boolean,
 }) {
   const [result, setResult] = useState<Measurement>()
   const [busy, setBusy] = useState(false)

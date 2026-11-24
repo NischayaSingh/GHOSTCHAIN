@@ -60,7 +60,7 @@ async function run(pass) {
   }, value)
 
   try {
-    note('GHOSTCHAIN • A browser-only coded storage simulation')
+    note('GHOSTCHAIN • A coded storage simulation with a live Node server')
     await page.goto(config.host)
     await page.locator('.metric > strong').filter({ hasText: /^Recovered$/ }).waitFor()
     await click('Pause')

@@ -68,7 +68,7 @@ export function InputModes({ snapshot, busy, publish }: {
         <label>Or choose a file<input key={fileKey} type="file" onChange={event => setFile(event.target.files?.[0])} /></label>
         {file && <div className="actions"><span>{file.name}</span><button type="button" className="button ghost"
           onClick={() => { setFile(undefined); setFileKey(key => key + 1) }}>Clear file</button></div>}
-        <p className="note">Your text or file stays in this browser. AI explanations use recovery metrics only.</p>
+        <p className="note">Your text or file is sent to the simulation server. AI explanations use recovery metrics only.</p>
       </> : <>
         <label>Prompt<textarea value={prompt} maxLength={6000} onChange={event => setPrompt(event.target.value)} /></label>
         <p className="note">Your prompt goes to the AI service. Its response becomes the block payload.</p>
