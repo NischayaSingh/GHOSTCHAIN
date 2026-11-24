@@ -1,0 +1,67 @@
+@font-face {
+  font-family: 'Inter Tight';
+  src: url('./fonts/intertight.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./fonts/jetbrainsmono.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+:root {
+  color-scheme: dark;
+  --canvas: #0e1013;
+  --surface: #14171b;
+  --border: #262a30;
+  --line: #3c424b;
+  --text: #e7e9ed;
+  --muted: #a3aab4;
+  --accent: #5b8cff;
+  --link: #83a7ff;
+  --on-accent: #090e16;
+  --honest: #4c9a7a;
+  --offline: #6b7280;
+  --withholding: #d4604e;
+  --delayed: #d9a441;
+  --glyph-strength: 100%;
+  --success-text: #79bf9f;
+  --error-text: #f08b79;
+  --warning-text: #e3b85e;
+  --secondary-series: #a3aab4;
+  --third-series: #777f8c;
+  --ui: 'Inter Tight', Inter, system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --title: 20px;
+  --body: 14px;
+  --small: 12px;
+  --meta: 11px;
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s6: 24px;
+  --s8: 32px;
+  --radius: 6px;
+}
+:root[data-theme='light'] {
+  color-scheme: light;
+  --canvas: #f6f5f1;
+  --surface: #fffefa;
+  --border: #d6d4cc;
+  --line: #a7a8ad;
+  --text: #202329;
+  --muted: #545961;
+  --accent: #5b8cff;
+  --link: #254eaa;
+  --on-accent: #090e16;
+  --glyph-strength: 65%;
+  --success-text: #256347;
+  --error-text: #9d3728;
+  --warning-text: #77510e;
+  --secondary-series: #515967;
+  --third-series: #747c87;
+}

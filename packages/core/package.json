@@ -1,0 +1,7 @@
+{
+  "name": "@ghostchain/core",
+  "private": true,
+  "type": "module",
+  "exports": { "./*": "./src/*.ts" },
+  "dependencies": { "kzg-wasm": "1.0.0" }
+}

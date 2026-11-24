@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0f18" />
+  <title>Project files | GHOSTCHAIN</title>
+  <style>
+    :root{font:16px system-ui,sans-serif;color:#ebf1fa;background:#0a0f18;color-scheme:dark}
+    *{box-sizing:border-box}
+    body{margin:0}
+    main{max-width:840px;margin:42px auto;padding:0 22px}
+    a{color:#5eeac6}
+    h1{font-size:clamp(2rem,6vw,3.3rem);margin:.55em 0 .17em;letter-spacing:-.035em}
+    p{color:#a7b5c9;line-height:1.55;margin:.15em 0 1.5em}
+    ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    li a{display:block;border:1px solid #2a394d;background:#111a27;text-decoration:none;border-radius:9px;padding:14px 16px;font-weight:650}
+    li a:hover,li a:focus-visible{border-color:#5eeac6;outline-offset:3px}
+    small{display:block;font-size:.85rem;font-weight:400;color:#a7b5c9;margin-top:4px}
+    video{width:100%;border:1px solid #2a394d;border-radius:10px;background:#0d141f}
+    @media(max-width:540px){ul{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main>
+    <a href="../">Open GHOSTCHAIN Lab</a>
+    <h1>Project files</h1>
+    <p>Source, measured results, and presentation materials for the GHOSTCHAIN proof of concept.</p>
+    <ul>
+      <li><a href="GHOSTCHAIN-updated-files.zip" download>Updated files<small>Dashboard and AI code, fonts, tests and benchmark data</small></a></li>
+      <li><a href="GHOSTCHAIN-source.zip" download>Source repository<small>ZIP with tests, fixture producer and README</small></a></li>
+      <li><a href="GHOSTCHAIN-report.pdf">Technical report<small>PDF with methods and results</small></a></li>
+      <li><a href="GHOSTCHAIN-slides.pptx" download>Slide deck<small>Editable PowerPoint with speaker notes</small></a></li>
+      <li><a href="GHOSTCHAIN-demo.mp4" download>Backup demo<small>Captioned recording of a Chromium rehearsal</small></a></li>
+      <li><a href="../results/sweep.csv" download>Experiment data<small>CSV from the seeded fault sweeps</small></a></li>
+      <li><a href="../results/sweep.json" download>Experiment configuration and data<small>JSON with paired results for both profiles</small></a></li>
+      <li><a href="browser-wasm.json" download>Browser timing data<small>Raw samples from both rehearsals</small></a></li>
+      <li><a href="sweep-figures.svg" download>Evaluation plots<small>Vector figure with recovery, storage, traffic and finality</small></a></li>
+    </ul>
+    <h2>Recorded rehearsal</h2>
+    <video controls preload="metadata" playsinline poster="demo-poster.png">
+      <source src="GHOSTCHAIN-demo.mp4" type="video/mp4" />
+    </video>
+  </main>
+</body>
+</html>

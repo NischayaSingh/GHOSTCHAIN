@@ -1,0 +1,11 @@
+{
+  "seed": 20261120,
+  "trials": 100,
+  "faults": [10, 20, 30, 40, 50, 60],
+  "profiles": [
+    { "name": "Faults only", "withholding": 0, "latency": 0 },
+    { "name": "Combined stress", "withholding": 100, "latency": 280 }
+  ],
+  "adaptiveWarmupRounds": 4,
+  "samples": 30
+}

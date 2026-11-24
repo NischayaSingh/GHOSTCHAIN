@@ -1,0 +1,42 @@
+{
+  "name": "ghostchain",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite --config apps/web/vite.config.ts --host 0.0.0.0",
+    "build": "vite build --config apps/web/vite.config.ts",
+    "preview": "vite preview --config apps/web/vite.config.ts --host 0.0.0.0",
+    "check": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "experiment": "tsx scripts/experiment.ts",
+    "fixtures": "tsx scripts/fixture.ts",
+    "zk:build": "bash zk/build.sh",
+    "zk:verify": "snarkjs groth16 verify apps/web/public/zk/verification_key.json apps/web/public/zk/public.json apps/web/public/zk/proof.json",
+    "rehearse": "node scripts/rehearse.mjs"
+  },
+  "devDependencies": {
+    "@crate-crypto/node-eth-kzg": "^0.10.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/snarkjs": "^0.7.9",
+    "circom2": "^0.2.23",
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7",
+    "playwright": "^1.65.1",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "snarkjs": "^0.7.6"
+  }
+}

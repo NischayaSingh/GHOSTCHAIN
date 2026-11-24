@@ -1,0 +1,140 @@
+{
+  "runs": [
+    {
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "rows": [
+        {
+          "samples": 16,
+          "repetitions": 12,
+          "medianMs": 54.5,
+          "p95Ms": 71.7,
+          "timings": [
+            55.6,
+            54.2,
+            53.3,
+            52.1,
+            53.7,
+            52.1,
+            71.7,
+            54.8,
+            53.7,
+            55.7,
+            56.2,
+            66.7
+          ]
+        },
+        {
+          "samples": 24,
+          "repetitions": 12,
+          "medianMs": 69.44999999999999,
+          "p95Ms": 74.2,
+          "timings": [
+            65.2,
+            68.6,
+            69.3,
+            66.7,
+            72.7,
+            71.1,
+            71,
+            65.5,
+            74.2,
+            73.1,
+            67.2,
+            69.6
+          ]
+        },
+        {
+          "samples": 30,
+          "repetitions": 12,
+          "medianMs": 80.7,
+          "p95Ms": 89.4,
+          "timings": [
+            82.6,
+            79.2,
+            76.9,
+            78.4,
+            89.4,
+            82.2,
+            80.2,
+            79.3,
+            79.3,
+            82.9,
+            81.2,
+            83.3
+          ]
+        }
+      ],
+      "playwright": "1.65.1",
+      "chromium": "156.0.8078.79",
+      "warmupExcluded": true
+    },
+    {
+      "browser": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "rows": [
+        {
+          "samples": 16,
+          "repetitions": 12,
+          "medianMs": 59.25,
+          "p95Ms": 127.7,
+          "timings": [
+            113.5,
+            127.7,
+            111.2,
+            56.6,
+            62.7,
+            52.4,
+            55,
+            61.1,
+            63.8,
+            57.4,
+            51.3,
+            54.4
+          ]
+        },
+        {
+          "samples": 24,
+          "repetitions": 12,
+          "medianMs": 92.75,
+          "p95Ms": 103.5,
+          "timings": [
+            93.6,
+            71.4,
+            76.1,
+            103.5,
+            98.1,
+            88.7,
+            89.6,
+            100.5,
+            91.9,
+            88.7,
+            95,
+            102.4
+          ]
+        },
+        {
+          "samples": 30,
+          "repetitions": 12,
+          "medianMs": 105.80000000000001,
+          "p95Ms": 154.7,
+          "timings": [
+            130.2,
+            111.5,
+            89.9,
+            87.6,
+            93.4,
+            102,
+            119,
+            107.4,
+            104.2,
+            108.4,
+            99.7,
+            154.7
+          ]
+        }
+      ],
+      "playwright": "1.65.1",
+      "chromium": "156.0.8078.79",
+      "warmupExcluded": true
+    }
+  ]
+}
