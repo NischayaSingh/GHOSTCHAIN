@@ -72,6 +72,8 @@ async function readRequest(req: IncomingMessage): Promise<NetworkRequest> {
 }
 
 export function createApi(assetRoot: URL) {
+  const trustedOrigins = new Set((process.env.GHOSTCHAIN_TRUSTED_ORIGINS ?? '')
+    .split(',').map(origin => origin.trim()).filter(Boolean))
   const sessions = new Map<string, {
     handle: ReturnType<typeof createSimulation>, busy: boolean, touched: number,
   }>()
@@ -101,7 +103,7 @@ export function createApi(assetRoot: URL) {
       return reply(405, { error: 'Method not allowed' })
     }
     const { origin, host } = req.headers
-    if (origin && origin !== `http://${host}` && origin !== `https://${host}`) {
+    if (origin && origin !== `http://${host}` && origin !== `https://${host}` && !trustedOrigins.has(origin)) {
       return reply(403, { error: 'Send simulation requests from this app' })
     }
     try {

@@ -25,6 +25,15 @@ npm start
 
 Open http://127.0.0.1:4173. The same Node process serves the UI and the API. A static deployment of `dist/` cannot run simulations. For an HTTPS demo link, deploy the included Dockerfile to a host that keeps a Node process running, with one replica and a health check at `/api/health`. The container listens on port 4173 by default and respects `PORT`. Browser cryptography requires HTTPS or localhost.
 
+### Deploy the frontend on Vercel
+
+1. Deploy the Dockerfile to an HTTPS host that runs one Node replica. Keep the backend URL handy and confirm its `/api/health` endpoint responds.
+2. Run `npm run configure:vercel -- https://YOUR-BACKEND-HOST` from the repository root. It checks the backend and writes `vercel.json` with a same-origin API rewrite.
+3. Commit the generated `vercel.json` for Git-based deployment, or run `npx vercel deploy` from this checkout after signing in with `npx vercel login`. Use the repository root as the Vercel project root.
+4. On the Node host, set `GHOSTCHAIN_TRUSTED_ORIGINS` to the exact HTTPS origin of your Vercel deployment and restart the backend. Use a comma-separated list if you need more than one deployment origin. Open the Vercel URL and run a clean and a stressed round before promoting it to production.
+
+The Vercel frontend forwards simulation requests to the Node host. Configure the rewrite on Vercel instead of placing simulation session state in a Vercel Function. The AI endpoint retains its local-only access.
+
 ### Show the live backend
 
 1. Open DevTools → Network and filter for `/api/sim`. Click **Pause** to control the experiment manually.

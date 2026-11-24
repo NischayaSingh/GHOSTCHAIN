@@ -21,7 +21,8 @@
     "zk:build": "bash zk/build.sh",
     "zk:verify": "snarkjs groth16 verify apps/web/public/zk/verification_key.json apps/web/public/zk/public.json apps/web/public/zk/proof.json",
     "rehearse": "node scripts/rehearse.mjs",
-    "start": "node --experimental-strip-types --disable-warning=ExperimentalWarning --env-file-if-exists=.env apps/server/start.ts"
+    "start": "node --experimental-strip-types --disable-warning=ExperimentalWarning --env-file-if-exists=.env apps/server/start.ts",
+    "configure:vercel": "node scripts/configure-vercel.mjs"
   },
   "devDependencies": {
     "@crate-crypto/node-eth-kzg": "^0.10.0",
