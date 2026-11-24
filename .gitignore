@@ -8,3 +8,4 @@ reports/rehearsal/
 .env.*
 !.env.example
 *.zkey
+.vercel/
